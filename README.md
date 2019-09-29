@@ -20,4 +20,4 @@ This option users color sorted images so first you have to option `-s`.
 To mosaic image use `python mosaic.py -m [image source] [step] [image output]`. 
 `[step]` specifies size of a single mosaic square. The smaller `[step]` is the longer it takes to finish mosaicing picture
 
-![step = 5](https://github.com/psobczak/mosaic2/blob/master/step5.jpg)
+<img src="https://github.com/psobczak/mosaic2/blob/master/step5.jpg" width=200 height=200/> <img src="https://github.com/psobczak/mosaic2/blob/master/step10.jpg" width=200 height=200/> <img src="https://github.com/psobczak/mosaic2/blob/master/step20.jpg" width=200 height=200/>
