@@ -23,3 +23,10 @@ To mosaic image use `python mosaic.py -m [image source] [step] [image output]`.
 <p align="center">
 <img src="https://github.com/psobczak/mosaic2/blob/master/step5.jpg" width=250 height=250/> <img src="https://github.com/psobczak/mosaic2/blob/master/step10.jpg" width=250 height=250/> <img src="https://github.com/psobczak/mosaic2/blob/master/step20.jpg" width=250 height=250/>
 </p>
+
+Here is a [set of ~18000 images](https://ufile.io/vg8sjwzh) that were used to create mosaics showed above. Feel free to download them or use your own.
+
+## Known issues / TODOs ##
+- Mosaicing and image sorting is not very efficient. Maybe add support for threading?
+- For now program does not support searching for images recursively. When you sepcify `[source directory]` images can not be inside subfolders.
+- Program assumes that in `[source directory]` all files are in .jpg format. For now, other formats are not supported. 
