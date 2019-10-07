@@ -2,7 +2,7 @@ import os
 import glob
 from shutil import copy
 import sys
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import fnmatch
 import operator
 import logging
@@ -165,12 +165,40 @@ def print_help():
     print('-m [image source] [step] [image output]')
 
 
+def prepare_squares(image, step):
+    """Helper function that returns a list of step-sided image fragments (squares)."""
+    img = cv.imread(image)
+    width, height = img.shape[:2]
+    squares = []
+
+    for x in range(0, width, step):
+        for y in range(0, height, step):
+            square = img[x:x+step, y:y+step]
+            squares.append(square)
+    return squares
+
+
+def assign_colors_with_threading(image):
+    """Helper function used for multiprocessing testing."""
+    average = average_image(image)
+    assigned = assing_color_name(average)
+    print(assigned)
+    return assigned
+
+# Roughly 21 000 image fragments were assigned color names in:
+# One process - 155,161 sec.
+# +/- 12 processes - 26,369 sec
+
 if __name__ == "__main__":
-    if argv[1] == '-m':
-        mosaic_image(argv[2], argv[3], argv[4])
-    elif argv[1] == '-d':
-        remove_duplicates(argv[2])
-    elif argv[1] == '-s':
-        copy_images_to_folders(argv[2], argv[3])
-    elif argv[1] == '-h' or argv[1] == '--help':
-        print_help()
+    with ProcessPoolExecutor() as executor:
+        future = executor.map(assign_colors_with_threading,
+                              prepare_squares('ja.jpg', 5))
+#         pass
+#     if argv[1] == '-m':
+#         mosaic_image(argv[2], argv[3], argv[4])
+#     elif argv[1] == '-d':
+#         remove_duplicates(argv[2])
+#     elif argv[1] == '-s':
+#         copy_images_to_folders(argv[2], argv[3])
+#     elif argv[1] == '-h' or argv[1] == '--help':
+#         print_help()
